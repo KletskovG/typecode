@@ -3,6 +3,7 @@ module github.com/kletskovg/typecode/server/src
 go 1.14
 
 require (
+	github.com/gobuffalo/packr/v2 v2.2.0
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/gorilla/mux v1.8.0

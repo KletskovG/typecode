@@ -15,10 +15,6 @@ import (
 func (server *APIServer) HandleInsert () http.HandlerFunc {
 	return func (w http.ResponseWriter, r *http.Request) {
 		utils.EnableCors(&w)
-		// params := mux.Vars(r)
-		// language := params["language"]
-		// db.FindFile(server.DbClient, language)
-		// w.Write([]byte("Handle Find File" + language))
 
 		var file db.File
 		err := json.NewDecoder(r.Body).Decode(&file)
