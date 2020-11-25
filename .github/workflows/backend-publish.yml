@@ -1,0 +1,30 @@
+name: Typecode Db Service Deploy
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'server/src/**'
+      - '.github/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      LOGIN: ${{ secrets.DOCKER_LOGIN }}
+      DOCKER: ${{ secrets.DOCKER_NAME }}
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          path: go/src/github.com/kletskovg/typecode
+
+      - name: Publish Server to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: ${{ secrets.TYPECODE_API }}
+          username: ${{secrets.DOCKER_LOGIN}}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          context: go/src/github.com/kletskovg/typecode/server/src/
+
