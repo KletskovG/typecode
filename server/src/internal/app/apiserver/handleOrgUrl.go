@@ -11,13 +11,3 @@ func (s *APIServer) HandleOrgUrl() http.HandlerFunc {
 		w.Write([]byte(("Hello on Hello page")))
 	}
 }
-
-func getOrgByName(name string) string{
-	// ghClient := github.NewClient(nil)
-	// ctx := context.Background()
-	// listOptions := github.ListOptions{}
-	// opts := github.OrganizationsListOptions{nil, }
-	// ghClient.Organizations.ListAll(ctx, )
-
-	return "Hello"
-} 

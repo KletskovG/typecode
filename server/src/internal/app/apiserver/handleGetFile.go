@@ -8,7 +8,6 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/gorilla/mux"
 	"github.com/kletskovg/typecode/server/src/internal/utils"
-	"github.com/kletskovg/typecode/server/src/internal/db"
 )
 
 func (server *APIServer) HandleGetFile () http.HandlerFunc {
@@ -45,22 +44,21 @@ func processFile(language string, extension string) []byte {
 	ghFile, getFileErr := github.GetFile(language, extension)
 	
 	if getFileErr != nil {
-		dbClient := db.Connect()
-		cachedFile := db.ExtractFromCache(dbClient, "go")
-		log.Info("GIHUB FILE IN PROCESS FILE")
-		log.Info(cachedFile)
-
-		htmlStr, _ := cachedFile["htmlUrl"].(string)
-		raw, _ := github.GetRawFile(string(htmlStr))
-		file.Code = raw
-
-		if name, ok := cachedFile["language"].(string); ok {
-			file.Name = name
-		}
-
-		if owner, ok := cachedFile["rawUrl"].(string); ok {
-			file.Owner = owner
-		}
+		//
+		//log.Info("GIHUB FILE IN PROCESS FILE")
+		//log.Info(cachedFile)
+		//
+		//htmlStr, _ := cachedFile["htmlUrl"].(string)
+		//raw, _ := github.GetRawFile(string(htmlStr))
+		//file.Code = raw
+		//
+		//if name, ok := cachedFile["language"].(string); ok {
+		//	file.Name = name
+		//}
+		//
+		//if owner, ok := cachedFile["rawUrl"].(string); ok {
+		//	file.Owner = owner
+		//}
 		
 		log.Info(file)
 		} else {

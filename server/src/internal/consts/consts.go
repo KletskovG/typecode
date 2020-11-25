@@ -30,4 +30,8 @@ func AppliedOrgs () []string {
 }
 
 // MinCodeSize size of github file content
-const MinCodeSize = 1000;
+const MinCodeSize = 1000
+
+// DB_SERVICE_URL url of TypeCode db service
+const DB_SERVICE_URL = "http://db.typecode.kletskovg.tech/"
+

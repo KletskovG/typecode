@@ -8,7 +8,7 @@ import (
 )
 
 
-func InsertFile(client *mongo.Client, file File) {
+func InsertFile(client *mongo.Client, file File) *mongo.InsertOneResult {
 	db := client.Database("Gym")
 	cache := db.Collection("cache", nil)
 
@@ -29,4 +29,6 @@ func InsertFile(client *mongo.Client, file File) {
 		"file": file,
 		"res": res,
 	}).Info("Succefully save file to cache")
+
+	return res
 }

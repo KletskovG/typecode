@@ -1,13 +1,12 @@
 package db
 
 import (
-	"github.com/kletskovg/typecode/server/db_service/src/internal/consts"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	log "github.com/sirupsen/logrus"
 	"context"
-	"math/rand"
+	"github.com/kletskovg/typecode/server/db_service/src/internal/consts"
+	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func FindFile(client *mongo.Client, language string) {
@@ -24,13 +23,4 @@ func FindFile(client *mongo.Client, language string) {
 	if err = cursor.All(context.TODO(), &results); err != nil {
 		log.Fatal(err)
 	}
-	
-	// randIndex := getRandomElement(len(results))
-	// var findedFile interface{}
-	// err = bson.Unmarshal(results, &findedFile)
-}
-
-func getRandomElement (arrayLength int) int {
-	getRand := rand.Int63n(int64(arrayLength))
-	return int(getRand)
 }

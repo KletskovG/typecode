@@ -1,11 +1,9 @@
 package apiserver
 
 import (
-	// "github.com/kletskovg/typecode/server/src/internal/utils"
 	"net/http"
 	"github.com/sirupsen/logrus"
 	"github.com/gorilla/mux"
-	// "github.com/kletskovg/typecode/server/src/internal/github"
 )
 
 type APIServer struct{
@@ -53,12 +51,3 @@ func (s *APIServer) HandleHello() http.HandlerFunc {
 		w.Write([]byte(("Hello on Hello page")))
 	}
 }
-
-// func (s *APIServer) handleGetFile() http.HandlerFunc {
-// 	return func (w http.ResponseWriter, r *http.Request) {
-// 		github.GetFile("go")
-		
-// 		w.Write([]byte(("Look to the console")))
-// 	}
-// }
-

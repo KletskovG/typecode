@@ -1,10 +1,14 @@
-FROM golang:1.14-buster AS builder
+FROM golang:1.14-buster AS deps
 EXPOSE 8081
 WORKDIR /
 
 
-COPY ./src ./
+COPY ./src/go.mod ./
+COPY ./src/go.sum ./
 RUN go mod download -x
+
+FROM deps AS builder
+COPY ./src ./
 RUN go build -v -o /bin/server ./main.go
 
 FROM debian:buster-slim

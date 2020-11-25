@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"github.com/google/go-github/github"
 	"github.com/kletskovg/typecode/server/src/internal/utils"
-	// "github.com/kletskovg/typecode/server/src/internal/db"
 	"regexp"
 )
 

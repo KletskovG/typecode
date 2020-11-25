@@ -1,13 +1,12 @@
 package db
 
 import (
+	"context"
+	"github.com/kletskovg/typecode/server/db_service/src/internal/utils"
+	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"os"
-	"context"
 	"time"
-	"io/ioutil"
-	log "github.com/sirupsen/logrus"
 )
 
 type File struct {
@@ -19,16 +18,10 @@ type File struct {
 
 func Connect() *mongo.Client {
 	
-	var DB_CONNECTION string
-	
-	if os.Getenv("DB_CONNECTION")  == "" {
-		data,_ := ioutil.ReadFile("config.txt")
-		DB_CONNECTION = string(data)
-	} else {
-		DB_CONNECTION = os.Getenv("DB_CONNECTION")
-	}
-	
+	DB_CONNECTION := utils.GetEnvVar("DB_CONNECTION")
+
 	log.Info("Starting DB connection")
+	log.Info(DB_CONNECTION)
 	ctx, cancel := context.WithTimeout(context.TODO(), 10*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(DB_CONNECTION))

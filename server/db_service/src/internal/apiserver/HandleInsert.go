@@ -30,7 +30,7 @@ func (server *APIServer) HandleInsert () http.HandlerFunc {
 			}).Error("During parse request body")
 		}
 
-		go db.InsertFile(server.DbClient, file);
+		go db.InsertFile(server.DbClient, file)
 
 		log.Info(file)
 		w.Write([]byte("Check console"))

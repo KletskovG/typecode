@@ -2,6 +2,7 @@ package db
 
 import (
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/bson"
 	log "github.com/sirupsen/logrus"
 	"context"
 )
@@ -12,15 +13,9 @@ func clearCache(client *mongo.Client) {
 
 	cache := db.Collection("cache", nil)
 	log.Info("DROPPING CACHE")
-	dropErr := cache.Drop(context.TODO())
+	_, deleteErr := cache.DeleteMany(context.TODO(), bson.D{})
 
-	if dropErr != nil {
-		log.Error(dropErr)
-	}
-
-	if err := db.CreateCollection(context.TODO(), "cache", nil); err != nil {
-		log.Fatal(err)
-	} else {
-		log.Info("Succesfully create collection")
+	if deleteErr != nil {
+		log.Error(deleteErr)
 	}
 }
