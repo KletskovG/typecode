@@ -1,6 +1,9 @@
 package apiserver
 
 import (
+	"bytes"
+	"github.com/kletskovg/typecode/server/src/internal/consts"
+	"io/ioutil"
 	"net/http"
 	"github.com/kletskovg/typecode/server/src/internal/github"
 	"strings"
@@ -28,7 +31,7 @@ func (server *APIServer) HandleGetFile () http.HandlerFunc {
 
 func splitRawByLines (raw string) [][]string {
 	linesSplit := strings.Split(raw, "\n")
-	var lines [][]string = *new([][]string)
+	lines := *new([][]string)
 
 	for i := range linesSplit {
     lineSymbols := strings.Split(linesSplit[i], "")
@@ -61,10 +64,27 @@ func processFile(language string, extension string) []byte {
 		//}
 		
 		log.Info(file)
-		} else {
-			file.Code = ghFile.Code
-		}
+	} else {
+		file.Code = ghFile.Code
+	}
 
+	log.Info("LOOK AT THE FILE")
+	log.Info(ghFile)
+	cacheJson,_ := json.Marshal(ghFile)
+	requestUrl := []string{consts.DB_SERVICE_URL, "/insert"}
+	res, err := http.Post(strings.Join(requestUrl, ""), "application/json", bytes.NewBuffer(cacheJson))
+
+	if err != nil {
+		log.Error(err)
+	}
+
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+
+	body, _ := ioutil.ReadAll(res.Body)
+	log.Info("CHECK DB RESPONSE")
+	log.Info(string(body))
 	lines := splitRawByLines(file.Code)
 	result := map[string]interface{}{
 		"data": lines,

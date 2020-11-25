@@ -2,9 +2,9 @@ package apiserver
 
 import (
 	"encoding/json"
-	"net/http"
 	"github.com/kletskovg/typecode/server/db_service/src/internal/db"
 	"github.com/kletskovg/typecode/server/db_service/src/internal/utils"
+	"net/http"
 	// "github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	// "context"
@@ -33,6 +33,7 @@ func (server *APIServer) HandleInsert () http.HandlerFunc {
 		go db.InsertFile(server.DbClient, file)
 
 		log.Info(file)
-		w.Write([]byte("Check console"))
+		fileMarshal, _ := json.Marshal(file)
+		w.Write(fileMarshal)
 	}
 }
