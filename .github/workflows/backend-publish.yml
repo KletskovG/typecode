@@ -1,4 +1,4 @@
-name: Typecode Db Service Deploy
+name: API Service Deploy
 
 on:
   push:
@@ -26,5 +26,5 @@ jobs:
           name: ${{ secrets.TYPECODE_API }}
           username: ${{secrets.DOCKER_LOGIN}}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          context: go/src/github.com/kletskovg/typecode/server/src/
+          context: go/src/github.com/kletskovg/typecode/server/
 
