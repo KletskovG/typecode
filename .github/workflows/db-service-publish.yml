@@ -21,7 +21,7 @@ jobs:
         path: go/src/github.com/kletskovg/typecode
 
     - name: Publish Server to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: ${{ secrets.TYPECODE_DB_IMAGE }}
         username: ${{secrets.DOCKER_LOGIN}}
